@@ -1,8 +1,8 @@
 'use client';
 
-import { products } from '@/data/produtcs';
-import { useState } from 'react';
 
+import { useState } from 'react';
+import type { Product } from '@/data/produtcs';
 export default function Home() {
   // Estados UI
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
