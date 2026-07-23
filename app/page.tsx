@@ -1,10 +1,11 @@
 'use client';
 
-
 import { useState } from 'react';
+import Link from 'next/link';
 import { products, type Product } from '@/data/produtcs';
+
 export default function Home() {
-  // Estados UI
+  // Estado UI
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [step, setStep] = useState(1);
@@ -18,7 +19,7 @@ export default function Home() {
   });
   const [paymentMethod, setPaymentMethod] = useState<'yape' | 'transfer'>('yape');
 
-  // Abrir modal
+  // Modal
   const handleBuy = (prod: Product) => {
     setSelectedProduct(prod);
     setStep(1);
@@ -30,7 +31,7 @@ export default function Home() {
     e.preventDefault();
     if (!selectedProduct) return;
 
-    // Mensaje WhatsApp
+    // Mensaje WA
     const msg = `*NUEVA ORDEN - MUnityZ*%0A%0A` +
       `*Servicio:* ${selectedProduct.name}%0A` +
       `*Monto:* ${selectedProduct.displayPrice}%0A` +
@@ -42,7 +43,7 @@ export default function Home() {
       `*Teléfono:* ${formData.phone}%0A%0A` +
       `_Adjunto comprobante._`;
 
-    // Redireccion
+    // Abrir WA
     const waUrl = `https://wa.me/51940185343?text=${msg}`;
     window.open(waUrl, '_blank');
     setIsModalOpen(false);
@@ -122,7 +123,6 @@ export default function Home() {
               <h3 className="text-lg font-bold text-slate-900 mb-6">Resumen de Orden</h3>
               <div className="bg-white p-4 rounded-xl border border-gray-200 mb-4">
                 <p className="font-semibold text-gray-800">{selectedProduct.name}</p>
-               
               </div>
               <div className="flex justify-between items-center mt-6 pt-6 border-t border-gray-200">
                 <span className="text-gray-600 font-medium">Total</span>
@@ -226,6 +226,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="text-3xl font-bold mb-4">MUnityZ<span className="text-blue-500">.</span></div>
           <p className="text-slate-400 mb-8">Soluciones digitales de alto rendimiento.</p>
+          
+          {/* Enlaces legales */}
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-8 text-sm text-slate-300">
+            <Link href="/terminos" className="hover:text-white transition">Términos y Condiciones</Link>
+            <span className="hidden md:inline">|</span>
+            <Link href="/politicas" className="hover:text-white transition">Políticas de Devolución</Link>
+            <span className="hidden md:inline">|</span>
+            <Link href="/libro-reclamaciones" className="hover:text-white transition">Libro de Reclamaciones</Link>
+          </div>
+
           <div className="border-t border-slate-800 pt-8">
             <p className="text-slate-500 text-sm">© {new Date().getFullYear()} MUnityZ. Todos los derechos reservados.</p>
           </div>
